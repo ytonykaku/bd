@@ -27,7 +27,7 @@ create_script2 = (
 nome_time TEXT PRIMARY KEY,
 serie CHAR NOT NULL,
 UF VARCHAR(2) DEFAULT 0,
-tecnico TEXT
+tecnico TEXT UNIQUE
     )"""
 )
 
@@ -135,6 +135,13 @@ VALUES
   ('São Paulo', 'A', 'SP', 'Hernán Crespo')"""
 )
 
+create_inserttest = (
+    """
+         INSERT INTO Team (nome_time, serie, uf, tecnico)
+VALUES
+  ('Cruzeiro', 'A', 'MG', 'Renato Gaúcho')"""
+)
+
 create_insert2 = (
     """
     INSERT INTO Jogador (bid, nome, idade, posicao, numero_camisa, nome_time)
@@ -142,6 +149,13 @@ VALUES
 (1, 'Gabigol', 25, 'Atacante', 9, 'Flamengo'),
 (2, 'Gustavo Gómez', 29, 'Zagueiro', 15, 'Palmeiras'),
 (3, 'Luciano', 29, 'Atacante', 11, 'São Paulo')"""
+)
+
+create_insert3 = (
+    """
+    INSERT INTO Jogo (N_Jogo, estadio, time_visitante, time_mandante, placar_visitante, placar_mandante, n_rodada)
+VALUES
+  (1, 'Estádio ABC', 'Flamengo', 'Palmeiras', 1, 2, 5)"""
 )
 
 create_view = (
@@ -183,11 +197,13 @@ try:
     cur.execute(create_script6)
     cur.execute(create_script7)
     cur.execute(create_script8)
-   # cur.execute(create_insert)
-   # cur.execute(create_insert2)
-    cur.execute(create_view)
-    cur.execute(create_view2)
-    cur.execute(create_view3)
+    cur.execute(create_inserttest)
+    #cur.execute(create_insert)
+  #  cur.execute(create_insert2)
+   # cur.execute(create_insert3)
+    #cur.execute(create_view)
+ #   cur.execute(create_view2)
+   # cur.execute(create_view3)
     conn.commit()
 
 except Exception as error:
