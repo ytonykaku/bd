@@ -31,15 +31,15 @@ def main():
                    ]
 
     sql_views = ["sql\\views\\view1.sql",
-                 "sql\\views\\view2.sql",
-                 "sql\\views\\view3.sql",
-                 "sql\\views\\view4.sql",
-                 "sql\\views\\view5.sql",
-                 "sql\\views\\view6.sql"
+                 #"sql\\views\\view2.sql",
+                 #"sql\\views\\view3.sql",
+                 #"sql\\views\\view4.sql",
+                 #"sql\\views\\view5.sql",
+                 #"sql\\views\\view6.sql"
                  ]
 
-    database.execute_sql_files(sql_files)
-    database.execute_sql_files(sql_inserts)
+    #database.execute_sql_files(sql_files)
+    #database.execute_sql_files(sql_inserts)
     database.execute_sql_files(sql_views)
 
     database.close_connection()
