@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS Team (
     nome_time TEXT PRIMARY KEY,
-    SERIE CHAR NOT NULL,
-    UF VARCHAR(2) DEFAULT 0,
-    tecnico TEXT,
+    serie CHAR NOT NULL,
+    UF VARCHAR(2),
+    tecnico TEXT UNIQUE,
 
+    FOREIGN KEY (UF) REFERENCES EstadosBrasil (UF)
 );

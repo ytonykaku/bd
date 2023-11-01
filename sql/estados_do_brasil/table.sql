@@ -1,0 +1,3 @@
+CREATE TABLE EstadosBrasil (
+    UF VARCHAR(2) PRIMARY KEY
+);
