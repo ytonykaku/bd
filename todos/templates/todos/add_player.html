@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Base Title{% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    <h2>Add Player</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Player</button>
+    </form>
+{% endblock %}
+</body>
+</html>
+
+

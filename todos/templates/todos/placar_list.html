@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placar dos Jogos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-rbs5dbjFynL3fym2oMmjrel/q0Sf1PIpa6jXl5NqQFjV8sCk1BR5Aow5+7J1A2wL" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Placar dos Jogos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Número do Jogo</th>
+                <th>Time Visitante</th>
+                <th>Placar Visitante</th>
+                <th>Placar Mandante</th>
+                <th>Time Mandante</th>
+            </tr>
+        </thead>
+        <tbody id="scoresTableBody">
+            <!-- Os placares dos jogos serão exibidos aqui -->
+        </tbody>
+    </table>
+
+    <h2 class="mt-4" id="stadiumName"></h2>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Aqui você faria uma requisição AJAX para o servidor para obter os placares dos jogos.
+        // Substitua o trecho abaixo com a lógica apropriada para buscar os dados no Django.
+        $.ajax({
+            url: '/placar/',
+            method: 'GET',
+            success: function(data) {
+                // Assumindo que o retorno da requisição contém os placares dos jogos e está no formato adequado.
+                // Adapte conforme necessário.
+                var scoresData = data.placares;
+
+                // Ordenar os placares pela rodada
+                scoresData.sort(function(a, b) {
+                    return a.N_rodada - b.N_rodada;
+                });
+
+                // Preencher a tabela com os placares dos jogos
+                var scoresTableBody = $('#scoresTableBody');
+                scoresTableBody.empty();  // Limpar o conteúdo atual da tabela
+
+                for (var i = 0; i < scoresData.length; i++) {
+                    var jogo = scoresData[i];
+                    var row = '<tr>' +
+                        '<td>' + jogo.N_Jogo + '</td>' +
+                        '<td>' + jogo.time_visitante + '</td>' +
+                        '<td>' + jogo.placar_visitante + '</td>' +
+                        '<td>' + jogo.placar_mandante + '</td>' +
+                        '<td>' + jogo.time_mandante + '</td>' +
+                        '</tr>';
+                    scoresTableBody.append(row);
+                }
+
+                // Exibir o estádio correspondente ao jogo
+                var stadiumName = scoresData.length > 0 ? scoresData[0].estadio : '';
+                $('#stadiumName').text('Estádio: ' + stadiumName);
+            },
+            error: function(error) {
+                console.log('Erro ao obter os placares dos jogos:', error);
+            }
+        });
+    });
+</script>
+</body>
+</html>

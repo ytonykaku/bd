@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Player</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Jogador de futebol</h2>
+                <div class="form-group">
+                    <label for="searchPlayer">Procure jogador:</label>
+                    <input type="text" class="form-control" id="Procure o jogador" placeholder="Digite o nome do jogador">
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">BID: <span id="bid"></span></h5>
+                        <h5 class="card-title">Nome: <span id="name"></span></h5>
+                        <h5 class="card-title">Idade: <span id="age"></span></h5>
+                        <h5 class="card-title">Posição: <span id="position"></span></h5>
+                        <h5 class="card-title">Camisa: <span id="shirtNumber"></span></h5>
+                        <h5 class="card-title">Time: <span id="team"></span></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h2>Stats</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Faltas Sofridas: <span id="foulsSuffered"></span></h5>
+                        <h5 class="card-title">Faltas Cometidas: <span id="foulsCommitted"></span></h5>
+                        <h5 class="card-title">Gols: <span id="goals"></span></h5>
+                        <h5 class="card-title">Cartões amarelos: <span id="yellowCards"></span></h5>
+                        <h5 class="card-title">Cartões vermelho: <span id="redCards"></span></h5>
+                        <h5 class="card-title">Assistẽncias: <span id="assistances"></span></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#searchPlayer").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                // Fetch player data from the server based on the input value
+                // For simplicity, I will assume you have an endpoint in your Django backend
+                // which takes a player name as a parameter and returns the player data as JSON
+                $.get("/jogador/" + value, function(data) {
+                    if (data) {
+                        $("#bid").text(data.bid);
+                        $("#name").text(data.nome);
+                        $("#age").text(data.idade);
+                        $("#position").text(data.posicao);
+                        $("#shirtNumber").text(data.numero_camisa);
+                        $("#team").text(data.nome_time);
+
+                        // Similarly, fetch player stats data from the server based on the input value
+                       $.get("/statsjogador/" + value, function(data) {
+                            if (data) {
+                                $("#foulsSuffered").text(data.faltas_sofridas);
+                                $("#foulsCommitted").text(data.faltas_feitas);
+                                $("#goals").text(data.numero_de_gols);
+                                $("#yellowCards").text(data.amarelos);
+                                $("#redCards").text(data.vermelhos);
+                                $("#assistances").text(data.numero_de_assistencias);
+                            }
+                        });
